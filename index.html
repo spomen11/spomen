@@ -31,12 +31,12 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
 .first-name{display:block;color:#d8c5a5;font-size:clamp(22px,5vw,47px);letter-spacing:.18em;margin-bottom:8px}
 .last-name{display:block;color:#f4e5ca;font-size:clamp(40px,9vw,82px);letter-spacing:.04em;text-shadow:0 3px 18px rgba(0,0,0,.8)}
 .dates{position:absolute;z-index:4;top:55.2%;left:0;width:100%;text-align:center;color:#f0dfc0;font-size:clamp(12px,2.6vw,23px);letter-spacing:.12em}
-.quote{position:absolute;z-index:4;top:64%;left:12%;width:76%;text-align:center;color:#eee2cf;font-size:clamp(13px,2.9vw,25px);line-height:1.42;font-style:italic;text-shadow:0 2px 10px #000}
+.quote{position:absolute;z-index:4;top:63%;left:12%;width:76%;text-align:center;color:#eee2cf;font-size:clamp(12px,2.7vw,23px);line-height:1.42;font-style:italic;text-shadow:0 2px 10px #000}
 
-/* GUMBI */
-.buttons{position:absolute;z-index:5;top:77%;left:19%;width:62%;display:grid;grid-template-columns:1fr 1fr;gap:4%}
+/* GUMBI NA NASLOVNOJ */
+.buttons{position:absolute;z-index:5;top:74%;left:19%;width:62%;display:grid;grid-template-columns:1fr 1fr;gap:4%}
 .memorial-button{
-  min-height:140px;
+  min-height:125px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -65,8 +65,8 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
 }
 
 .button-icon-wrapper{
-  width:44px;
-  height:44px;
+  width:40px;
+  height:40px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -81,8 +81,8 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   transform:scale(1.08);
 }
 .btn-svg{
-  width:22px;
-  height:22px;
+  width:20px;
+  height:20px;
   fill:none;
   stroke:#f1d7a3;
   stroke-width:1.8;
@@ -90,8 +90,32 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   stroke-linejoin:round;
 }
 
-.button-title{font-size:clamp(10px,1.9vw,17px);letter-spacing:.11em;font-weight:600;color:#f1d7a3}
-.button-subtitle{color:#b8afa3;font-size:clamp(8px,1.45vw,13px);letter-spacing:.07em}
+.button-title{font-size:clamp(10px,1.9vw,16px);letter-spacing:.11em;font-weight:600;color:#f1d7a3}
+.button-subtitle{color:#b8afa3;font-size:clamp(8px,1.45vw,12px);letter-spacing:.07em}
+
+/* UKRASNI POTPIS NA DNU GLAVNE STRANICE */
+.memorial-footer{
+  position:absolute;
+  z-index:4;
+  bottom:3.5%;
+  left:10%;
+  width:80%;
+  text-align:center;
+}
+.footer-divider{
+  width:80px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(217,183,122,.5), transparent);
+  margin:0 auto 10px auto;
+}
+.footer-text{
+  margin:0;
+  color:#b8afa3;
+  font-size:clamp(9px,1.6vw,13px);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  opacity:.85;
+}
 
 /* MODAL OPĆENITO */
 .modal{
@@ -128,7 +152,6 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   box-shadow:inset 0 0 30px rgba(0,0,0,.9);
 }
 
-/* SLIKA U SLIDESHOW-U */
 .slide{
   position:absolute;
   inset:0;
@@ -141,14 +164,12 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   transition:opacity 2s ease-in-out, filter 2s ease-in-out;
 }
 
-/* Aktivna slika (zumiranje) */
 .slide.active{
   opacity:1;
   z-index:2;
   animation:kenBurns 7s ease-out forwards;
 }
 
-/* Slika koja izlazi (rastapa se u maglicu bez skoka) */
 .slide.outgoing{
   opacity:0;
   z-index:1;
@@ -162,7 +183,6 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   100%{transform:scale(1.1)}
 }
 
-/* SLOJ AMBIJENTALNE MAGLICE */
 .mist-layer{
   position:absolute;
   inset:0;
@@ -182,7 +202,7 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   100%{transform:scale(1.04) translate(2%, -1%); opacity:.6}
 }
 
-/* KONTROLE SLIDESHOW-A */
+/* SREĐENE KONTROLE SLIDESHOW-A (SUBLTILNIJI STIL) */
 .slideshow-controls{
   display:flex;
   align-items:center;
@@ -191,25 +211,29 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   padding:0 10px;
 }
 .nav-btn{
-  background:rgba(217,183,122,.1);
-  border:1px solid rgba(217,183,122,.4);
-  color:#f1d7a3;
-  padding:8px 16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(217,183,122,.25);
+  color:#d8c5a5;
+  padding:6px 16px;
   border-radius:20px;
   cursor:pointer;
   font-family:Georgia, serif;
-  font-size:14px;
-  transition:.2s;
+  font-size:15px;
+  transition:.2s ease;
 }
-.nav-btn:hover{background:rgba(217,183,122,.3)}
-.slide-counter{color:#b8afa3;font-size:14px;letter-spacing:.1em}
+.nav-btn:hover{
+  background:rgba(217,183,122,.15);
+  color:#f1d7a3;
+  border-color:rgba(217,183,122,.5);
+}
+.slide-counter{color:#b8afa3;font-size:14px;letter-spacing:.12em}
 
 @media(max-width:560px){
   .page{padding:5px}.memorial{border-radius:15px}
-  .buttons{left:12%;width:76%;gap:3%}
-  .memorial-button{min-height:95px;border-radius:20px;gap:4px;padding:8px}
-  .button-icon-wrapper{width:32px;height:32px;margin-bottom:0}
-  .btn-svg{width:16px;height:16px}
+  .buttons{left:12%;width:76%;gap:3%;top:72%}
+  .memorial-button{min-height:90px;border-radius:20px;gap:4px;padding:8px}
+  .button-icon-wrapper{width:30px;height:30px;margin-bottom:0}
+  .btn-svg{width:15px;height:15px}
   .slideshow-viewport{aspect-ratio:4/3}
 }
 </style>
@@ -251,10 +275,16 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
       <small class="button-subtitle" id="photosSubtitle"></small>
     </button>
   </div>
+
+  <!-- POPUNJENA PRAZNINA NA DNU -->
+  <div class="memorial-footer">
+    <div class="footer-divider"></div>
+    <p class="footer-text">Zauvijek u našim srcima • Tvoji najmiliji</p>
+  </div>
 </main>
 </div>
 
-<!-- VIDEO MODAL (ZA LOKALNI VIDEO) -->
+<!-- VIDEO MODAL -->
 <div class="modal" id="videoModal" onclick="closeIfBackdrop(event,'videoModal')">
   <div class="modal-box">
     <button class="close" onclick="closeModal('videoModal')">×</button>
@@ -267,7 +297,7 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   </div>
 </div>
 
-<!-- GALERIJA MODAL (ANIMIRANI ALBUM) -->
+<!-- GALERIJA MODAL -->
 <div class="modal" id="galleryModal" onclick="closeIfBackdrop(event,'galleryModal')">
   <div class="modal-box">
     <button class="close" onclick="closeModal('galleryModal')">×</button>
@@ -275,13 +305,14 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
     
     <div class="slideshow-viewport" id="slideshowViewport"></div>
 
+    <!-- SAMO STRELICE I DISKRETNA PAUZA -->
     <div class="slideshow-controls">
-      <button class="nav-btn" onclick="prevSlide()">❮ Prethodna</button>
+      <button class="nav-btn" onclick="prevSlide()" title="Prethodna">❮</button>
       <div class="slide-counter">
         <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">1</span>
       </div>
       <button class="nav-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸ Pauza</button>
-      <button class="nav-btn" onclick="nextSlide()">Sljedeća ❯</button>
+      <button class="nav-btn" onclick="nextSlide()" title="Sljedeća">❯</button>
     </div>
   </div>
 </div>
@@ -295,7 +326,6 @@ const PODACI = {
   datumi: "12. 03. 1948.  —  15. 07. 2021.",
   tekst: "Otišao si tiho, ali tvoja dobrota, osmijeh i ljubav ostaju zauvijek s nama.",
 
-  /* Lokalni video fajl */
   videoLink: "galerija/video.mp4",
 
   videoNaslov: "VIDEO SJEĆANJA",
@@ -309,8 +339,8 @@ const PODACI = {
 const GALERIJA = [
   "galerija/slika1.avif",
   "galerija/slika2.avif",
-  "galerija/slika3.jpg",
-  "galerija/slika4.jpg"
+  "galerija/slika3.avif",
+  "galerija/slika4.avif"
 ];
 
 /* Prikaz osnovnih podataka */
@@ -338,7 +368,7 @@ function openVideo(){
 let currentSlide = 0;
 let slideInterval = null;
 let isPlaying = true;
-const DURATION = 6500; // Trajanje po slici (6.5s)
+const DURATION = 6500;
 
 function initSlideshow(){
   const viewport = document.getElementById("slideshowViewport");
