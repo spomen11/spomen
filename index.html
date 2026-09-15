@@ -22,44 +22,44 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
 
 /* FOTOGRAFIJA POKOJNIKA */
 .person{
-  position:absolute;z-index:2;left:1.5%;top:10%;width:43%;height:36%;
+  position:absolute;z-index:2;left:1.5%;top:9%;width:40%;height:33%;
   object-fit:cover;object-position:center top;
   filter:grayscale(1) contrast(1.06);
   -webkit-mask-image:radial-gradient(ellipse 76% 80% at 44% 45%,#000 34%,rgba(0,0,0,.82) 52%,transparent 76%);
   mask-image:radial-gradient(ellipse 76% 80% at 44% 45%,#000 34%,rgba(0,0,0,.82) 52%,transparent 76%);
 }
 
-/* TEKST */
-.title{position:absolute;z-index:4;top:4.4%;left:0;width:100%;text-align:center;color:#ead5ad;font-size:clamp(10px,2vw,17px);letter-spacing:.30em;text-transform:uppercase}
-.name{position:absolute;z-index:4;top:41.5%;left:0;width:100%;text-align:center;line-height:.95}
-.first-name{display:block;color:#d8c5a5;font-size:clamp(22px,5vw,47px);letter-spacing:.18em;margin-bottom:8px}
-.last-name{display:block;color:#f4e5ca;font-size:clamp(40px,9vw,82px);letter-spacing:.04em;text-shadow:0 3px 18px rgba(0,0,0,.8)}
-.dates{position:absolute;z-index:4;top:55.2%;left:0;width:100%;text-align:center;color:#f0dfc0;font-size:clamp(12px,2.6vw,23px);letter-spacing:.12em}
-.quote{position:absolute;z-index:4;top:63%;left:12%;width:76%;text-align:center;color:#eee2cf;font-size:clamp(12px,2.7vw,23px);line-height:1.42;font-style:italic;text-shadow:0 2px 10px #000}
+/* TEKST (SMANJEN ZA ~15%) */
+.title{position:absolute;z-index:4;top:4%;left:0;width:100%;text-align:center;color:#ead5ad;font-size:clamp(9px,1.7vw,14px);letter-spacing:.30em;text-transform:uppercase}
+.name{position:absolute;z-index:4;top:38%;left:0;width:100%;text-align:center;line-height:.95}
+.first-name{display:block;color:#d8c5a5;font-size:clamp(18px,4.2vw,40px);letter-spacing:.18em;margin-bottom:6px}
+.last-name{display:block;color:#f4e5ca;font-size:clamp(34px,7.6vw,70px);letter-spacing:.04em;text-shadow:0 3px 18px rgba(0,0,0,.8)}
+.dates{position:absolute;z-index:4;top:50.5%;left:0;width:100%;text-align:center;color:#f0dfc0;font-size:clamp(10px,2.2vw,19px);letter-spacing:.12em}
+.quote{position:absolute;z-index:4;top:57.5%;left:12%;width:76%;text-align:center;color:#eee2cf;font-size:clamp(10px,2.3vw,19px);line-height:1.38;font-style:italic;text-shadow:0 2px 10px #000}
 
-/* GUMBI NA NASLOVNOJ */
-.buttons{position:absolute;z-index:5;top:74%;left:19%;width:62%;display:grid;grid-template-columns:1fr 1fr;gap:4%}
+/* GUMBI NA NASLOVNOJ (SMANJENI I PODIGNUTI VIŠE) */
+.buttons{position:absolute;z-index:5;top:67%;left:20%;width:60%;display:grid;grid-template-columns:1fr 1fr;gap:4%}
 .memorial-button{
-  min-height:125px;
+  min-height:105px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  padding:12px;
+  gap:6px;
+  padding:10px;
   text-decoration:none;
   text-align:center;
   color:#f5eee4;
   background:linear-gradient(145deg, rgba(15,15,15,.92), rgba(5,5,5,.85));
   border:1px solid rgba(217,183,122,.6);
-  border-radius:28px;
+  border-radius:24px;
   cursor:pointer;
   box-shadow:0 10px 30px rgba(0,0,0,.65), inset 0 0 15px rgba(217,183,122,.05);
   backdrop-filter:blur(4px);
   transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 .memorial-button:hover{
-  transform:translateY(-4px);
+  transform:translateY(-3px);
   background:linear-gradient(145deg, rgba(30,25,18,.92), rgba(12,10,8,.9));
   border-color:#e2c58d;
   box-shadow:0 15px 35px rgba(0,0,0,.8), 0 0 25px rgba(217,183,122,.25);
@@ -69,15 +69,15 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
 }
 
 .button-icon-wrapper{
-  width:40px;
-  height:40px;
+  width:34px;
+  height:34px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:50%;
   background:rgba(217,183,122,.1);
   border:1px solid rgba(217,183,122,.25);
-  margin-bottom:2px;
+  margin-bottom:1px;
   transition:transform .25s ease, background .25s ease;
 }
 .memorial-button:hover .button-icon-wrapper{
@@ -85,8 +85,8 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
   transform:scale(1.08);
 }
 .btn-svg{
-  width:20px;
-  height:20px;
+  width:17px;
+  height:17px;
   fill:none;
   stroke:#f1d7a3;
   stroke-width:1.8;
@@ -94,29 +94,29 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
   stroke-linejoin:round;
 }
 
-.button-title{font-size:clamp(10px,1.9vw,16px);letter-spacing:.11em;font-weight:600;color:#f1d7a3}
-.button-subtitle{color:#b8afa3;font-size:clamp(8px,1.45vw,12px);letter-spacing:.07em}
+.button-title{font-size:clamp(9px,1.6vw,14px);letter-spacing:.1em;font-weight:600;color:#f1d7a3}
+.button-subtitle{color:#b8afa3;font-size:clamp(7px,1.2vw,10px);letter-spacing:.06em}
 
-/* UKRASNI POTPIS NA DNU GLAVNE STRANICE */
+/* POTPIS NA DNU */
 .memorial-footer{
   position:absolute;
   z-index:4;
-  bottom:3.5%;
+  bottom:2.5%;
   left:10%;
   width:80%;
   text-align:center;
 }
 .footer-divider{
-  width:80px;
+  width:70px;
   height:1px;
   background:linear-gradient(90deg, transparent, rgba(217,183,122,.5), transparent);
-  margin:0 auto 10px auto;
+  margin:0 auto 8px auto;
 }
 .footer-text{
   margin:0;
   color:#b8afa3;
-  font-size:clamp(9px,1.6vw,13px);
-  letter-spacing:.18em;
+  font-size:clamp(8px,1.4vw,11px);
+  letter-spacing:.16em;
   text-transform:uppercase;
   opacity:.85;
 }
@@ -206,7 +206,6 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
   100%{transform:scale(1.04) translate(2%, -1%); opacity:.6}
 }
 
-/* KONTROLE SLIDESHOW-A */
 .slideshow-controls{
   display:flex;
   align-items:center;
@@ -232,14 +231,14 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
 }
 .slide-counter{color:#b8afa3;font-size:14px;letter-spacing:.12em}
 
-/* MOBILNA PRILAGODBA - PUNI EKRAN BEZ PRAZNINE */
+/* MOBILNA PRILAGODBA - PODIGNUTI ELEMENAT ZBOG SVIJEĆE */
 @media(max-width:560px){
   .page{padding:0;width:100%;height:100vh;height:100dvh;}
   .memorial{border-radius:0;height:100vh;height:100dvh;aspect-ratio:auto;}
-  .buttons{left:12%;width:76%;gap:3%;top:71%}
-  .memorial-button{min-height:90px;border-radius:20px;gap:4px;padding:8px}
-  .button-icon-wrapper{width:30px;height:30px;margin-bottom:0}
-  .btn-svg{width:15px;height:15px}
+  .buttons{left:14%;width:72%;gap:3%;top:65%}
+  .memorial-button{min-height:76px;border-radius:18px;gap:3px;padding:6px}
+  .button-icon-wrapper{width:26px;height:26px;margin-bottom:0}
+  .btn-svg{width:13px;height:13px}
   .slideshow-viewport{aspect-ratio:4/3}
 }
 </style>
