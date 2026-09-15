@@ -6,8 +6,12 @@
 <title>Digitalni spomenar</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#030303}
-body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
+html,body{
+  margin:0;padding:0;background:#030303;
+  min-height:100vh;min-height:100dvh;
+  display:flex;align-items:center;justify-content:center;
+}
+body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif;width:100%}
 .page{width:min(100%,760px);margin:auto;padding:10px}
 .memorial{
   position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;
@@ -202,7 +206,7 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
   100%{transform:scale(1.04) translate(2%, -1%); opacity:.6}
 }
 
-/* SREĐENE KONTROLE SLIDESHOW-A (SUBLTILNIJI STIL) */
+/* KONTROLE SLIDESHOW-A */
 .slideshow-controls{
   display:flex;
   align-items:center;
@@ -228,9 +232,11 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
 }
 .slide-counter{color:#b8afa3;font-size:14px;letter-spacing:.12em}
 
+/* MOBILNA PRILAGODBA - PUNI EKRAN BEZ PRAZNINE */
 @media(max-width:560px){
-  .page{padding:5px}.memorial{border-radius:15px}
-  .buttons{left:12%;width:76%;gap:3%;top:72%}
+  .page{padding:0;width:100%;height:100vh;height:100dvh;}
+  .memorial{border-radius:0;height:100vh;height:100dvh;aspect-ratio:auto;}
+  .buttons{left:12%;width:76%;gap:3%;top:71%}
   .memorial-button{min-height:90px;border-radius:20px;gap:4px;padding:8px}
   .button-icon-wrapper{width:30px;height:30px;margin-bottom:0}
   .btn-svg{width:15px;height:15px}
@@ -276,7 +282,6 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
     </button>
   </div>
 
-  <!-- POPUNJENA PRAZNINA NA DNU -->
   <div class="memorial-footer">
     <div class="footer-divider"></div>
     <p class="footer-text">Zauvijek u našim srcima • Tvoji najmiliji</p>
@@ -305,7 +310,6 @@ body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
     
     <div class="slideshow-viewport" id="slideshowViewport"></div>
 
-    <!-- SAMO STRELICE I DISKRETNA PAUZA -->
     <div class="slideshow-controls">
       <button class="nav-btn" onclick="prevSlide()" title="Prethodna">❮</button>
       <div class="slide-counter">
