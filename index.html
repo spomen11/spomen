@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digitalni spomenar</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#030303}
+body{color:#f5eee4;font-family:Georgia,"Times New Roman",serif}
+.page{width:min(100%,760px);margin:auto;padding:10px}
+.memorial{
+  position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;
+  border-radius:22px;background:#050505;
+  box-shadow:0 25px 80px rgba(0,0,0,.9);
+}
+.background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* FOTOGRAFIJA POKOJNIKA */
+.person{
+  position:absolute;z-index:2;left:1.5%;top:10%;width:43%;height:36%;
+  object-fit:cover;object-position:center top;
+  filter:grayscale(1) contrast(1.06);
+  -webkit-mask-image:radial-gradient(ellipse 76% 80% at 44% 45%,#000 34%,rgba(0,0,0,.82) 52%,transparent 76%);
+  mask-image:radial-gradient(ellipse 76% 80% at 44% 45%,#000 34%,rgba(0,0,0,.82) 52%,transparent 76%);
+}
+
+/* TEKST */
+.title{position:absolute;z-index:4;top:4.4%;left:0;width:100%;text-align:center;color:#ead5ad;font-size:clamp(10px,2vw,17px);letter-spacing:.30em;text-transform:uppercase}
+.name{position:absolute;z-index:4;top:41.5%;left:0;width:100%;text-align:center;line-height:.95}
+.first-name{display:block;color:#d8c5a5;font-size:clamp(22px,5vw,47px);letter-spacing:.18em;margin-bottom:8px}
+.last-name{display:block;color:#f4e5ca;font-size:clamp(40px,9vw,82px);letter-spacing:.04em;text-shadow:0 3px 18px rgba(0,0,0,.8)}
+.dates{position:absolute;z-index:4;top:55.2%;left:0;width:100%;text-align:center;color:#f0dfc0;font-size:clamp(12px,2.6vw,23px);letter-spacing:.12em}
+.quote{position:absolute;z-index:4;top:64%;left:12%;width:76%;text-align:center;color:#eee2cf;font-size:clamp(13px,2.9vw,25px);line-height:1.42;font-style:italic;text-shadow:0 2px 10px #000}
+
+/* GUMBI */
+.buttons{position:absolute;z-index:5;top:77%;left:19%;width:62%;display:grid;grid-template-columns:1fr 1fr;gap:4%}
+.memorial-button{
+  min-height:140px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  text-decoration:none;
+  text-align:center;
+  color:#f5eee4;
+  background:linear-gradient(145deg, rgba(15,15,15,.92), rgba(5,5,5,.85));
+  border:1px solid rgba(217,183,122,.6);
+  border-radius:28px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.65), inset 0 0 15px rgba(217,183,122,.05);
+  backdrop-filter:blur(4px);
+  transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.memorial-button:hover{
+  transform:translateY(-4px);
+  background:linear-gradient(145deg, rgba(30,25,18,.92), rgba(12,10,8,.9));
+  border-color:#e2c58d;
+  box-shadow:0 15px 35px rgba(0,0,0,.8), 0 0 25px rgba(217,183,122,.25);
+}
+.memorial-button:active{
+  transform:scale(.97);
+}
+
+.button-icon-wrapper{
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(217,183,122,.1);
+  border:1px solid rgba(217,183,122,.25);
+  margin-bottom:2px;
+  transition:transform .25s ease, background .25s ease;
+}
+.memorial-button:hover .button-icon-wrapper{
+  background:rgba(217,183,122,.22);
+  transform:scale(1.08);
+}
+.btn-svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:#f1d7a3;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.button-title{font-size:clamp(10px,1.9vw,17px);letter-spacing:.11em;font-weight:600;color:#f1d7a3}
+.button-subtitle{color:#b8afa3;font-size:clamp(8px,1.45vw,13px);letter-spacing:.07em}
+
+/* MODAL OPĆENITO */
+.modal{
+  position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);
+}
+.modal.open{display:flex}
+.modal-box{
+  width:min(940px,100%);max-height:92vh;overflow:auto;
+  background:#090909;border:1px solid rgba(217,183,122,.55);border-radius:20px;
+  box-shadow:0 25px 80px #000;position:relative;padding:20px;
+}
+.close{
+  position:absolute;right:12px;top:10px;width:42px;height:42px;border-radius:50%;
+  border:1px solid #d9b77a;background:#0b0b0b;color:#f1d7a3;font-size:25px;cursor:pointer;
+  z-index:10;
+  transition:.2s ease;
+}
+.close:hover{background:#d9b77a;color:#000}
+.modal-title{text-align:center;color:#f1d7a3;letter-spacing:.12em;margin:4px 45px 18px;font-weight:normal;}
+
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+
+/* SLIDESHOW ZONA */
+.slideshow-viewport{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/10;
+  max-height:68vh;
+  background:#000;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(217,183,122,.2);
+  box-shadow:inset 0 0 30px rgba(0,0,0,.9);
+}
+
+/* SLIKA U SLIDESHOW-U */
+.slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1);
+  filter:blur(0px);
+  transition:opacity 2s ease-in-out, filter 2s ease-in-out;
+}
+
+/* Aktivna slika (zumiranje) */
+.slide.active{
+  opacity:1;
+  z-index:2;
+  animation:kenBurns 7s ease-out forwards;
+}
+
+/* Slika koja izlazi (rastapa se u maglicu bez skoka) */
+.slide.outgoing{
+  opacity:0;
+  z-index:1;
+  transform:scale(1.1);
+  filter:blur(8px) contrast(0.9);
+  transition:opacity 2s ease-in-out, filter 2s ease-in-out;
+}
+
+@keyframes kenBurns{
+  0%{transform:scale(1.0)}
+  100%{transform:scale(1.1)}
+}
+
+/* SLOJ AMBIJENTALNE MAGLICE */
+.mist-layer{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.07) 0%, transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(217, 183, 122, 0.05) 0%, transparent 50%);
+  filter:blur(12px);
+  animation:mistMove 10s ease-in-out infinite alternate;
+  mix-blend-mode:screen;
+}
+
+@keyframes mistMove{
+  0%{transform:scale(1) translate(0, 0); opacity:.5}
+  50%{transform:scale(1.08) translate(-2%, 2%); opacity:.8}
+  100%{transform:scale(1.04) translate(2%, -1%); opacity:.6}
+}
+
+/* KONTROLE SLIDESHOW-A */
+.slideshow-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:14px;
+  padding:0 10px;
+}
+.nav-btn{
+  background:rgba(217,183,122,.1);
+  border:1px solid rgba(217,183,122,.4);
+  color:#f1d7a3;
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+  font-family:Georgia, serif;
+  font-size:14px;
+  transition:.2s;
+}
+.nav-btn:hover{background:rgba(217,183,122,.3)}
+.slide-counter{color:#b8afa3;font-size:14px;letter-spacing:.1em}
+
+@media(max-width:560px){
+  .page{padding:5px}.memorial{border-radius:15px}
+  .buttons{left:12%;width:76%;gap:3%}
+  .memorial-button{min-height:95px;border-radius:20px;gap:4px;padding:8px}
+  .button-icon-wrapper{width:32px;height:32px;margin-bottom:0}
+  .btn-svg{width:16px;height:16px}
+  .slideshow-viewport{aspect-ratio:4/3}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<main class="memorial">
+  <img class="background" src="pozadina.png" alt="">
+  <img class="person" src="slika-osobe.png" alt="Fotografija pokojnika">
+
+  <div class="title" id="title"></div>
+  <div class="name">
+    <span class="first-name" id="firstName"></span>
+    <span class="last-name" id="lastName"></span>
+  </div>
+  <div class="dates" id="dates"></div>
+  <div class="quote" id="quote"></div>
+
+  <div class="buttons">
+    <button class="memorial-button" type="button" onclick="openVideo()">
+      <div class="button-icon-wrapper">
+        <svg class="btn-svg" viewBox="0 0 24 24">
+          <polygon points="6 3 20 12 6 21 6 3" fill="#f1d7a3" stroke="none"/>
+        </svg>
+      </div>
+      <strong class="button-title" id="videoTitle"></strong>
+      <small class="button-subtitle" id="videoSubtitle"></small>
+    </button>
+
+    <button class="memorial-button" type="button" onclick="openGallery()">
+      <div class="button-icon-wrapper">
+        <svg class="btn-svg" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="3" ry="3"/>
+          <circle cx="8.5" cy="8.5" r="1.5" fill="#f1d7a3"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <strong class="button-title" id="photosTitle"></strong>
+      <small class="button-subtitle" id="photosSubtitle"></small>
+    </button>
+  </div>
+</main>
+</div>
+
+<!-- VIDEO MODAL (ZA LOKALNI VIDEO) -->
+<div class="modal" id="videoModal" onclick="closeIfBackdrop(event,'videoModal')">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('videoModal')">×</button>
+    <h2 class="modal-title">VIDEO SJEĆANJA</h2>
+    <div class="video-frame">
+      <video id="videoPlayer" controls style="width:100%;height:100%;object-fit:contain;border-radius:12px;background:#000;">
+        Tvoj preglednik ne podržava reprodukciju videa.
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIJA MODAL (ANIMIRANI ALBUM) -->
+<div class="modal" id="galleryModal" onclick="closeIfBackdrop(event,'galleryModal')">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal('galleryModal')">×</button>
+    <h2 class="modal-title">FOTOGRAFIJE IZ ŽIVOTA</h2>
+    
+    <div class="slideshow-viewport" id="slideshowViewport"></div>
+
+    <div class="slideshow-controls">
+      <button class="nav-btn" onclick="prevSlide()">❮ Prethodna</button>
+      <div class="slide-counter">
+        <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">1</span>
+      </div>
+      <button class="nav-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸ Pauza</button>
+      <button class="nav-btn" onclick="nextSlide()">Sljedeća ❯</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* PODACI ZA POKOJNIKA */
+const PODACI = {
+  naslov: "U SPOMEN NA NAŠEG DRAGOG",
+  ime: "IVAN",
+  prezime: "HORVAT",
+  datumi: "12. 03. 1948.  —  15. 07. 2021.",
+  tekst: "Otišao si tiho, ali tvoja dobrota, osmijeh i ljubav ostaju zauvijek s nama.",
+
+  /* Lokalni video fajl */
+  videoLink: "galerija/video.mp4",
+
+  videoNaslov: "VIDEO SJEĆANJA",
+  videoPodnaslov: "Uspomene koje žive",
+
+  fotografijeNaslov: "FOTOGRAFIJE",
+  fotografijePodnaslov: "Iz života"
+};
+
+/* POPIS FOTOGRAFIJA ALBUMA */
+const GALERIJA = [
+  "galerija/slika1.avif",
+  "galerija/slika2.avif",
+  "galerija/slika3.jpg",
+  "galerija/slika4.jpg"
+];
+
+/* Prikaz osnovnih podataka */
+document.getElementById("title").textContent = PODACI.naslov;
+document.getElementById("firstName").textContent = PODACI.ime;
+document.getElementById("lastName").textContent = PODACI.prezime;
+document.getElementById("dates").textContent = PODACI.datumi;
+document.getElementById("quote").textContent = PODACI.tekst;
+
+document.getElementById("videoTitle").textContent = PODACI.videoNaslov;
+document.getElementById("videoSubtitle").textContent = PODACI.videoPodnaslov;
+document.getElementById("photosTitle").textContent = PODACI.fotografijeNaslov;
+document.getElementById("photosSubtitle").textContent = PODACI.fotografijePodnaslov;
+
+/* VIDEO FUNKCIJE */
+function openVideo(){
+  const player = document.getElementById("videoPlayer");
+  player.src = PODACI.videoLink;
+  document.getElementById("videoModal").classList.add("open");
+  document.body.style.overflow="hidden";
+  player.play();
+}
+
+/* SLIDESHOW LOGIKA */
+let currentSlide = 0;
+let slideInterval = null;
+let isPlaying = true;
+const DURATION = 6500; // Trajanje po slici (6.5s)
+
+function initSlideshow(){
+  const viewport = document.getElementById("slideshowViewport");
+  viewport.innerHTML = "";
+
+  GALERIJA.forEach((src, index) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "Uspomena";
+    img.className = "slide" + (index === 0 ? " active" : "");
+    viewport.appendChild(img);
+  });
+
+  const mist = document.createElement("div");
+  mist.className = "mist-layer";
+  viewport.appendChild(mist);
+
+  document.getElementById("totalSlidesNum").textContent = GALERIJA.length;
+  updateCounter();
+}
+
+function updateCounter(){
+  document.getElementById("currentSlideNum").textContent = currentSlide + 1;
+}
+
+function showSlide(index){
+  const slides = document.querySelectorAll(".slide");
+  if(!slides.length) return;
+
+  const oldSlideIndex = currentSlide;
+  currentSlide = (index + slides.length) % slides.length;
+
+  if(oldSlideIndex !== currentSlide && slides[oldSlideIndex]){
+    slides[oldSlideIndex].classList.remove("active");
+    slides[oldSlideIndex].classList.add("outgoing");
+
+    setTimeout(() => {
+      slides[oldSlideIndex].classList.remove("outgoing");
+    }, 2000);
+  }
+
+  slides[currentSlide].classList.remove("outgoing");
+  slides[currentSlide].classList.remove("active");
+  void slides[currentSlide].offsetWidth;
+  slides[currentSlide].classList.add("active");
+
+  updateCounter();
+}
+
+function nextSlide(){
+  showSlide(currentSlide + 1);
+  resetTimer();
+}
+
+function prevSlide(){
+  showSlide(currentSlide - 1);
+  resetTimer();
+}
+
+function startTimer(){
+  if(slideInterval) clearInterval(slideInterval);
+  slideInterval = setInterval(() => {
+    showSlide(currentSlide + 1);
+  }, DURATION);
+  isPlaying = true;
+  document.getElementById("playPauseBtn").textContent = "⏸ Pauza";
+}
+
+function stopTimer(){
+  if(slideInterval) clearInterval(slideInterval);
+  slideInterval = null;
+  isPlaying = false;
+  document.getElementById("playPauseBtn").textContent = "▶ Pokreni";
+}
+
+function togglePlayPause(){
+  if(isPlaying){
+    stopTimer();
+  } else {
+    startTimer();
+  }
+}
+
+function resetTimer(){
+  if(isPlaying){
+    startTimer();
+  }
+}
+
+function openGallery(){
+  initSlideshow();
+  document.getElementById("galleryModal").classList.add("open");
+  document.body.style.overflow="hidden";
+  startTimer();
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("open");
+
+  if(id === "videoModal"){
+    const player = document.getElementById("videoPlayer");
+    player.pause();
+    player.currentTime = 0;
+    player.src = "";
+  }
+  if(id === "galleryModal"){
+    stopTimer();
+  }
+
+  if(!document.querySelector(".modal.open")){
+    document.body.style.overflow="";
+  }
+}
+
+function closeIfBackdrop(event,id){
+  if(event.target.id === id) closeModal(id);
+}
+
+document.addEventListener("keydown", e=>{
+  if(!document.getElementById("galleryModal").classList.contains("open")) {
+    if(e.key === "Escape"){
+      document.querySelectorAll(".modal.open").forEach(m=>closeModal(m.id));
+    }
+    return;
+  }
+
+  if(e.key === "Escape") closeModal("galleryModal");
+  if(e.key === "ArrowRight") nextSlide();
+  if(e.key === "ArrowLeft") prevSlide();
+  if(e.key === " ") {
+    e.preventDefault();
+    togglePlayPause();
+  }
+});
+</script>
+</body>
+</html>
